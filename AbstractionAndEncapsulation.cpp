@@ -2,7 +2,7 @@
 #include <vector>
 #include <limits>
 #include <algorithm>
-
+#include <cctype>
 using namespace std;
 
 class Employee {
@@ -91,9 +91,14 @@ string getNumericID(string prompt) {
     while (myCondition) {
         cout << prompt;
         cin >> id;
-        if (id.find_first_not_of("0123456789") == string::npos) {
-            myCondition = false;
-        } else {
+        myCondition = false;
+        for (char ch : id) {
+            if (!isdigit(ch)) {
+                myCondition = true;
+                break;
+            }
+        }
+        if (myCondition) {
             cout << "Invalid input! ID must contain only numbers.\n";
         }
     }
